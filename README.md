@@ -21,7 +21,7 @@ There are many ways to install the required software packages and Space-Py Quest
 Below we provide some suggestions for installing the required Python packages for less experienced users. From years of experience on working with diverse groups of people, for example, such as during summer schools, we recommend the use of [Anacoda distribution](https://www.anaconda.com/) which is cross platform, well documented and provides an easy to install and well managed Python environment.
 
 #### Example 1: I do not have Anaconda
-(If this does not apply to you, skip to [Example 2](Example 2: I do not have Jupyter)
+(If this does not apply to you, skip to [Example 2](#Example 2: I do not have Jupyter)
 Download either Miniconda or the full Anaconda package. Miniconda is quicker to install and perfectly adequate for the purposes of Space-Py Quest, while Anaconda would be more useful if you will use Python for other purposes as well. To download and install Miniconda with Python, instructions are available here: [https://conda.io/miniconda.html]. 
 Ensure that you are installing Python versions at or above 3.5.4.
 
@@ -46,5 +46,5 @@ This project was created by Philip Jones and Isobel Romero-Shaw, with support fr
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License version 3 as published by the Free Software Foundation.
 
-This project is licensed under the MIT License - see the [gpl-3.0.md](gpl-3.0.md) file for details
+This project is licensed under the GNU General Public License 3 - see the [gpl-3.0.md](gpl-3.0.md) file for details
 
