@@ -2,7 +2,7 @@
 
 Space-Py Quest is a gravitational wave interferometer parameter optimisation game, written in Python and run in a Jupyter notebook. 
 It is based on the original game Space-Time Quest, available as apps for iOS, Android, Windows, Linux and MacOs
-at <a href="https://www.laserlabs.org/spacetimequest.php">https://www.laserlabs.org/spacetimequest.php</a>. Both versions of the game can be used for teaching and public engagement. The apps are easy to use and provide a playful way to introduce detector design and technology. This Python version allows students to also look into the underlying noie models.
+at <a href="https://www.laserlabs.org/spacetimequest.php">https://www.laserlabs.org/spacetimequest.php</a>. Both versions of the game can be used for teaching and public engagement. The apps are easy to use and provide a playful way to introduce detector design and technology. This Python version allows students to also look into the underlying noise models.
 
 Space-Py Quest is played from a Jupyter notebook that consists of a single plot displaying multiple noise curves and the detector sensitivity. By modifying the detector's physical properties, the user can change the noise and sensitivity and thus design their own detector. A drop-down menu provides access to controls for the interferometer's variable parameters. Additional controls are available for adjusting the limits of the x- and y-axes, and for adding and removing individual noise curves from the total calculation. 
 
@@ -27,7 +27,7 @@ Open an Anaconda or Miniconda terminal. You can check that you are running a Pyt
 Run the command ```conda install jupyter``` to install Jupyter. You will need to confirm the install by pressing 'y' when prompted.
 
 ### Example 3: I do not have Bokeh
-Bokeh is an interactive graphics library for Python. To install this, open a command window and run ```conda install bokeh=0.12.9```. (Note that there are subtle differences between different versions of Bokeh and Space-Py Quest might only work correctly with Bokey 0.12.9.
+Bokeh is an interactive graphics library for Python. To install this, open a command window and run ```conda install bokeh=0.12.9```. (Note that there are subtle differences between different versions of Bokeh and Space-Py Quest might only work correctly with Bokey 0.12.9.)
 
 ### Example 4: I have all aforementioned packages
 Great! Open a command window and navigate to the SpacePyQuest folder. Run the command ```jupyter notebook SpacePyQuest.ipynb```.
