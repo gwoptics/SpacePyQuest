@@ -93,6 +93,9 @@ class spaceTimeQuest:
 
    # Initialise the plot embedded in the Jupyter notebook
    def initPlot(self):
+      # TODO adf 14022018, added this for bokeh workaround, remoave after fixing
+      import warnings
+      warnings.filterwarnings('ignore')
       self.plot = figure(
          plot_height=350,
          plot_width=650,
@@ -139,9 +142,17 @@ class spaceTimeQuest:
       self.scorecalculator.SetFreqRange(fi, ff)
       x, y, names = self.scorecalculator.GetNoiseCurves()
       for i, yi in enumerate(y):
+         # TODO: fix this, adf 14.02.2018
+         # the following is a workaround for a Bokeh bug which
+         # causes lines to not be clipped at the X/Y limits
+         # See: https://github.com/bokeh/bokeh/issues/6787
+         yi=np.array(yi)
+         x=np.array(x)
+         idxs = np.nonzero((yi<=self.yHi) & (yi>=self.yLo))[0]
+
          if names[i] not in self.names:
             self.colours[names[i]] = palettelight[i]
-            self.lines[names[i]] = self.plot.line(x, yi, color=palettelight[i], \
+            self.lines[names[i]] = self.plot.line(x[idxs], yi[idxs], color=palettelight[i], \
                                                   line_width=10)
             label = Label(x=x[int(len(x)/2)], y=yi[int(len(yi)/2)],
                           text=names[i], x_offset=7, y_offset=3, level='glyph', \
@@ -149,8 +160,8 @@ class spaceTimeQuest:
                           text_font_size='8pt')
             self.plot.add_layout(label)
          else:
-            self.lines[names[i]].data_source.data['x'] = x
-            self.lines[names[i]].data_source.data['y'] = yi
+            self.lines[names[i]].data_source.data['x'] = x[idxs]
+            self.lines[names[i]].data_source.data['y'] = yi[idxs]
       for nm in self.names:
          if nm not in names:
             self.lines[nm].data_source.data['x'] = x
