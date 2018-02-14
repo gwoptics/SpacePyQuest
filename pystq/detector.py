@@ -6,19 +6,15 @@ from random import randrange
 
 class Detector:
    # Detector takes dictionary as argument. This can then be passed around.
-
-   def set_action(self, key, name, limit, tag = "Other", parameter = -1):
-      self.names[key] = name
-      if limit is not None:
-          self.limits[key] = limit
-      self.parameters[key] = parameter
    def __init__(self, dictionary={}):
 
       self.names = {}
       self.limits = {}
       self.parameters = {}
       self.tags = {}
-      
+
+      # define user actions as
+      # set_action(key, name, limit, tag = "Other", parameter = -1):
       self.set_action('freqrange', 'Frequency range [loq(Hz)]',  (-4, 5), "Office", parameter = (0, 4))
       self.set_action('site', 'Location', None, 'Office', parameter =  sites.Jungle)
       self.set_action('depth', 'Depth [m]', (0.0, 1000.0), 'Environment')
@@ -73,3 +69,9 @@ class Detector:
       self.options = {}
       self.options['material'] = ['Crystal', 'Silicon', 'Sapphire', 'Silica']
       self.options['site'] = ['City', 'Jungle', 'Desert', 'Island']
+      
+   def set_action(self, key, name, limit, tag = "Other", parameter = -1):
+      self.names[key] = name
+      if limit is not None:
+          self.limits[key] = limit
+      self.parameters[key] = parameter

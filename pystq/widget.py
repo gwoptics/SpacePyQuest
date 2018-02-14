@@ -14,6 +14,7 @@ from bokeh.plotting import figure
 # Select a palette for plotting
 from bokeh.palettes import Dark2_8 as palette
 from bokeh.palettes import Category20_20 as palettelight
+from bokeh.models.formatters import TickFormatter, NumeralTickFormatter
 output_notebook(hide_banner=True)
 
 
@@ -98,6 +99,7 @@ class spaceTimeQuest:
       # TODO adf 14022018, added this for bokeh workaround, remoave after fixing
       import warnings
       warnings.filterwarnings('ignore')
+      TickFormatter
       self.plot = figure(
          plot_height=350,
          plot_width=750,
@@ -112,8 +114,8 @@ class spaceTimeQuest:
       self.setPlotYLim(self.yLo, self.yHi)
       self.plot.title.offset = self.plot.plot_width * (2 / 3)
       self.plot.yaxis.major_label_orientation = 'horizontal'
-      self.plot.axis.axis_label_text_font = 'italic'
-      self.plot.axis.axis_label_text_font_size = '15pt'
+      #self.plot.axis.axis_label_text_font = 'italic'
+      self.plot.axis.axis_label_text_font_size = '11pt'
       self.plot.axis.major_label_text_font_size = '10pt'
       fi = self.detector.parameters['freqrange'][0]
       ff = self.detector.parameters['freqrange'][1]
@@ -135,6 +137,8 @@ class spaceTimeQuest:
                                                     line_width=3)
          self.legends.append((self.names[i], [self.lines[self.names[i]]]))
       self.layoutLegend(self.legends)
+      # show freq axis as 1 10 ... 10k
+      self.plot.xaxis.formatter=NumeralTickFormatter(format="0 a")
       self.plot.output_backend = "svg"
       self.handle = show(self.plot, notebook_handle=True)
 
@@ -334,7 +338,7 @@ class spaceTimeQuest:
      # Set up Accordion-style widget container
    def Tabs(self):
       actions = self.configureWidgetTasks()
-      tabs = pywidgets.Tab(children=[actions[k] for k in actions], tootip='hello')
+      tabs = pywidgets.Tab(children=[actions[k] for k in actions])
       for i, key in enumerate(actions):
          tabs.set_title(i, key)
       return tabs
