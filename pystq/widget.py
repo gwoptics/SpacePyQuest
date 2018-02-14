@@ -42,7 +42,9 @@ class spaceTimeQuest:
       self.accordion = self.Accordion()
       # Drop-down menu style widget container
       self.dropdown = self.DropDown()
-
+      # Drop-down menu style widget container
+      self.tabs = self.Tabs()
+      
    # Calculate percentage of budget blown
    def budgetMsg(self):
       print(str(int(score.CalcCost(self.detector)/self.detector.parameters['site'].budget*100.0)) +\
@@ -328,6 +330,15 @@ class spaceTimeQuest:
             u, widge=self.pyw[key])
 
       return actionDict
+
+     # Set up Accordion-style widget container
+   def Tabs(self):
+      actions = self.configureWidgetTasks()
+      tabs = pywidgets.Tab(children=[actions[k] for k in actions], tootip='hello')
+      for i, key in enumerate(actions):
+         tabs.set_title(i, key)
+      return tabs
+
 
    # Set up Accordion-style widget container
    def Accordion(self):

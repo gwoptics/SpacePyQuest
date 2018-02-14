@@ -6,64 +6,43 @@ from random import randrange
 
 class Detector:
    # Detector takes dictionary as argument. This can then be passed around.
+
+   def set_action(self, key, name, limit, tag = "Other", parameter = -1):
+      self.names[key] = name
+      if limit is not None:
+          self.limits[key] = limit
+      self.parameters[key] = parameter
    def __init__(self, dictionary={}):
 
       self.names = {}
-      self.names['freqrange'] = 'Frequency range [loq(Hz)]'
-      self.names['site'] = 'Location'
-      self.names['depth'] = 'Depth [m]'
-      self.names['pumps'] = 'No. vacuum pumps'
-      self.names['temperature'] = 'Temperature [K]'
-      self.names['sus_stages'] = 'No. suspension stages'
-      self.names['sus_length'] = 'Suspension length [m]'
-      self.names['mirror_mass'] = 'Mirror mass [kg]'
-      self.names['power'] = 'Laser power [W]'
-      self.names['material'] = 'Material'
-      self.names['roughness'] = 'Roughness [nm]'
-
       self.limits = {}
-      # Frequency (Hz)
-      self.limits['freqrange'] = (-4, 5)
-      # Depth (m)
-      self.limits['depth'] = (0, 1000)
-      # Number of vacuum pumps
-      self.limits['pumps'] = (0, 16)
-      # Temperature (K)
-      self.limits['temperature'] = (1, 330)
-      # Number of suspension stages
-      self.limits['sus_stages'] = (1, 9)
-      # Length of suspension (m)
-      self.limits['sus_length'] = (0.35, 5)
-      # Mirror mass (kg)
-      self.limits['mirror_mass'] = (5, 100)
-      # Laser power (W)
-      self.limits['power'] = (1, 200)
-      # Roughness (nm)
-      self.limits['roughness'] = (1, 500)
-
-      # Set initial values, which might be changed by input dictionary.
       self.parameters = {}
-      # Initially set numeric values to obviously erroneous values.
-      self.parameters['depth'] = -1
-      self.parameters['pumps'] = -1
-      self.parameters['temperature'] = -1
-      self.parameters['sus_stages'] = -1
-      self.parameters['sus_length'] = -1
-      self.parameters['mirror_mass'] = -1
-      self.parameters['power'] = -1
-      self.parameters['roughness'] = -1
+      self.tags = {}
+      
+      self.set_action('freqrange', 'Frequency range [loq(Hz)]',  (-4, 5), "Office", parameter = (0, 4))
+      self.set_action('site', 'Location', None, 'Office', parameter =  sites.Jungle)
+      self.set_action('depth', 'Depth [m]', (0.0, 1000.0), 'Environment')
+      self.set_action('pumps', 'No. vacuum pumps', (1, 16), 'Environment')
+      self.set_action('temperature', 'Temperature [K]', (1.0, 330.0), 'Environment')
+      self.set_action('sus_stages', 'No. suspension stages', (1, 9), 'Suspension')
+      self.set_action('sus_length', 'Suspension length [m]', (0.35, 5.0), 'Suspension')
+      self.set_action('mirror_mass', 'Mirror mass [kg]', (5.0, 100.0), 'Suspension')
+      self.set_action('power', 'Laser power [W]', (1.0, 200.0), 'Optics')
+      self.set_action('material', 'Material', None,  'Optics',  parameter = materials.Silicon)
+      self.set_action('roughness', 'Roughness [nm]', (1, 500), 'Optics') 
+      
       # Now set random initial values based on constraints in self.limits.
+      # Do float for float limits, int for int limits and nothing for others
       for key in self.limits:
-         lim_diff = self.limits[key][1] - self.limits[key][0]
-         rand_float = float(randrange(1, 100)) / 100.0
-         self.parameters[key] = self.limits[key][0] + rand_float * lim_diff
-
-      # These initial values are currently hardcoded.
-      self.parameters['freqrange'] = (0, 4)
-      self.parameters['site'] = sites.Jungle
-      self.parameters['material'] = materials.Silicon
-      self.parameters['sus_stages'] = int(self.parameters['sus_stages'])
-
+          if type(self.limits[key]) is float:
+             lim_diff = self.limits[key][1] - self.limits[key][0]
+             rand_float = float(randrange(1, 100)) / 100.0
+             self.parameters[key] = self.limits[key][0] + rand_float * lim_diff
+          if type(self.limits[key]) is int:
+             lim_diff = self.limits[key][1] - self.limits[key][0]
+             rand_float = float(randrange(1, 100)) / 100.0
+             self.parameters[key] = int(self.limits[key][0] + rand_float * lim_diff)
+                 
       # Now update based on input dictionary
       for key in dictionary:
          self.parameters[key] = dictionary[key]
