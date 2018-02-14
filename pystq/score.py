@@ -87,7 +87,10 @@ class ScoreCalculator:
       # Integral values
       self.fMin = pow(10, detector.parameters['freqrange'][0])
       self.fMax = pow(10, detector.parameters['freqrange'][1])
-      self.nData = 100
+      # TODO: fix this
+      # adf 14.02.2018, set nData from 100 to 1000
+      # workaround for Bokeh bug, see widget.py
+      self.nData = 1000
 
       # Dictionary containing noise models
       self.noiseModels = {}

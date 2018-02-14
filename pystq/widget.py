@@ -118,11 +118,18 @@ class spaceTimeQuest:
       self.lines = {}
       for i, yi in enumerate(y):
          self.colours[self.names[i]] = palette[i]
-         self.lines[self.names[i]] = self.plot.line(x, yi, color=palette[i], \
+         # TODO: fix this, adf 14.02.2018
+         # the following is a workaround for a Bokeh bug which
+         # causes lines to not be clipped at the X/Y limits
+         # See: https://github.com/bokeh/bokeh/issues/6787
+         yi=np.array(yi)
+         x=np.array(x)
+         idxs = np.nonzero((yi<=self.yHi) & (yi>=self.yLo))[0]
+         self.lines[self.names[i]] = self.plot.line(x[idxs], yi[idxs], color=palette[i], \
                                                     line_width=3)
          self.legends.append((self.names[i], [self.lines[self.names[i]]]))
       self.layoutLegend(self.legends)
-      self.output_backend = "svg"
+      self.plot.output_backend = "svg"
       self.handle = show(self.plot, notebook_handle=True)
 
    # Update the existing plot
