@@ -14,7 +14,7 @@ from bokeh.plotting import figure
 # Select a palette for plotting
 from bokeh.palettes import Dark2_8 as palette
 from bokeh.palettes import Category20_20 as palettelight
-output_notebook()
+output_notebook(hide_banner=True)
 
 
 # Set up 'Space-Time Quest'-like game class
@@ -98,13 +98,14 @@ class spaceTimeQuest:
       warnings.filterwarnings('ignore')
       self.plot = figure(
          plot_height=350,
-         plot_width=650,
+         plot_width=750,
          x_axis_type='log',
          y_axis_type='log',
          title='Detector Noise',
          y_axis_label='h [1/\u221AHz]',
          x_axis_label='f [Hz]',
-         toolbar_location='above',
+         toolbar_location='right',
+         toolbar_sticky=False,
          tools="ypan, save, reset")
       self.setPlotYLim(self.yLo, self.yHi)
       self.plot.title.offset = self.plot.plot_width * (2 / 3)
