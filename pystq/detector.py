@@ -75,3 +75,4 @@ class Detector:
       if limit is not None:
           self.limits[key] = limit
       self.parameters[key] = parameter
+      self.tags[key] = tag

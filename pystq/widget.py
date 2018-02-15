@@ -27,8 +27,10 @@ class spaceTimeQuest:
       self.detector = Detector(init_vals)
       # Detector parameter keys
       self.keys = list(self.detector.parameters.keys())
+      # Keys
+      self.dictkeys = init_vals.keys()
       # Informative names to print on widgets
-      self.names = self.detector.names
+      self.detectnames = self.detector.names
       # Score calculator used in game
       self.scorecalculator = score.ScoreCalculator(self.detector)
       # Initial y-axis limits
@@ -43,13 +45,13 @@ class spaceTimeQuest:
       self.accordion = self.Accordion()
       # Drop-down menu style widget container
       self.dropdown = self.DropDown()
-      # Drop-down menu style widget container
+      # Tab style widget container
       self.tabs = self.Tabs()
       
    # Calculate percentage of budget blown
    def budgetMsg(self):
-      print(str(int(score.CalcCost(self.detector)/self.detector.parameters['site'].budget*100.0)) +\
-            "% of budget blown")
+      return str(int(score.CalcCost(self.detector)/self.detector.parameters['site'].budget*100.0)) +\
+            "% of budget blown"
 
    # Print everything calculated about the capabilities of the detector
    def printscore(self):
@@ -157,6 +159,11 @@ class spaceTimeQuest:
          x=np.array(x)
          idxs = np.nonzero((yi<=self.yHi) & (yi>=self.yLo))[0]
 
+         budgetlabel = Label(x=self.plot.plot_width*0.5, y=self.plot.plot_height*0.9, \
+                          text=self.budgetMsg(), level='glyph', render_mode='canvas', \
+                          text_color='red', text_font_size='9pt')
+         self.plot.add_layout(budgetlabel)
+
          if names[i] not in self.names:
             self.colours[names[i]] = palettelight[i]
             self.lines[names[i]] = self.plot.line(x[idxs], yi[idxs], color=palettelight[i], \
@@ -177,9 +184,13 @@ class spaceTimeQuest:
 
    # Initialise all of the widgets
    def initWidgets(self):
+
+      style = {'description_width': 'initial'}
+
       rangerList = []
       sliderList = []
       choiceList = []
+
       for key in self.keys:
          if type(self.detector.parameters[key]) == tuple:
             rangerList.append(key)
@@ -196,12 +207,13 @@ class spaceTimeQuest:
             min=self.detector.limits[key][0],
             max=self.detector.limits[key][1],
             step=0.1,
-            description=' ',
+            description=self.detectnames[key],
             disabled=False,
             continuous_update=False,
             orientation='horizontal',
             readout=True,
-            readout_format='')
+            readout_format='',
+            style=style)
 
       for key in sliderList:
          w[key] = pywidgets.FloatSlider(
@@ -209,12 +221,13 @@ class spaceTimeQuest:
             min=self.detector.limits[key][0],
             max=self.detector.limits[key][1],
             step=0.1,
-            description=' ',
+            description=self.detectnames[key],
             disabled=False,
             continuous_update=False,
             orientation='horizontal',
             readout=True,
-            readout_format='')
+            readout_format='',
+            style=style)
          if key == 'sus_stages':
             w[key].step = 1
 
@@ -225,14 +238,15 @@ class spaceTimeQuest:
          w[key] = pywidgets.ToggleButtons(
             options=self.detector.options[key],
             value=str_value,
-            description=' ',
+            description=self.detectnames[key],
             disabled=False,
-            continuous_update=False)
+            continuous_update=False,
+            style=style)
 
       # Set up boolean widgets for dictating which noise curves are calculated
       for key in self.names:
          w[key] = pywidgets.Checkbox(
-            value=True, description=str(key), disabled=False)
+            value=True, description=str(key), disabled=False, style=style)
       return w
 
    # Update detector
@@ -263,15 +277,18 @@ class spaceTimeQuest:
       elif ("Crystal" in str(self.detector.parameters['material'])):
          self.detector.parameters['material'] = materials.Crystal
       else:
-         print("Unrecongnised material")
+         print("Unrecognised material")
 
    # Set up the tasks that each widget controls
    def configureWidgetTasks(self):
+
+      style = {'description_width': 'initial'}
+
       # Link pywidgets to updating plot
       def u(widge):
          self.updateDetector()
          self.drawToPlot()
-         self.budgetMsg()
+        # self.budgetMsg()
 
       # Link check boxes to updating plot
       def c(widge):
@@ -295,7 +312,8 @@ class spaceTimeQuest:
          disabled=False,
          button_style='',
          tooltip='Science Run',
-         icon='check')
+         icon='check',
+         style=style)
       button.on_click(b)
 
       # Set up y-axis scaling range slider
@@ -309,7 +327,8 @@ class spaceTimeQuest:
          continuous_update=False,
          orientation='horizontal',
          readout=True,
-         readout_format='')
+         readout_format='',
+         style=style)
 
       nList = list(self.pyw[key] for key in self.names[0:-1])
       actionList_n = [pywidgets.interactive(c, widge=w) for w in nList]
@@ -335,11 +354,43 @@ class spaceTimeQuest:
 
       return actionDict
 
-     # Set up Accordion-style widget container
+     # Set up Tab-style widget container
    def Tabs(self):
       actions = self.configureWidgetTasks()
-      tabs = pywidgets.Tab(children=[actions[k] for k in actions])
-      for i, key in enumerate(actions):
+
+      office = []
+      environment = []
+      optics = []
+      suspension = []
+      other = []
+      
+      for key in self.dictkeys:
+         if self.detector.tags[key] == 'Office':
+            office.append(actions[self.detectnames[key]])
+         elif self.detector.tags[key] == 'Environment':
+            environment.append(actions[self.detectnames[key]])
+         elif self.detector.tags[key] == 'Optics':
+            optics.append(actions[self.detectnames[key]])
+         elif self.detector.tags[key] == 'Suspension':
+            suspension.append(actions[self.detectnames[key]])
+         else:
+            other.append(actions[self.detectnames[key]])
+
+      office.append(actions['Noise Curve Options'])
+      office.append(actions['Science Run'])
+
+      tabpairs = {
+      'Office' : pywidgets.VBox(office),
+      'Environment' : pywidgets.VBox(environment),
+      'Optics' : pywidgets.VBox(optics),
+      'Suspension' : pywidgets.VBox(suspension)
+      }
+
+      if len(other) > 0:
+         tabpairs['Other'] = other
+
+      tabs = pywidgets.Tab(children=[tabpairs[k] for k in tabpairs])
+      for i, key in enumerate(tabpairs):
          tabs.set_title(i, key)
       return tabs
 
