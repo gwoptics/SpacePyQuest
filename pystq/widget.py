@@ -55,17 +55,12 @@ class spaceTimeQuest:
 
    # Print everything calculated about the capabilities of the detector
    def printscore(self):
-      self.budgetMsg()
       s = self.scorecalculator.CalcScore()
 
-      print("""
-        Score: {score} Mpc
-            - NSNS Range: {nsnsr:.2f} Mpc
-            - BHBH Range: {bhbhr:.2f} Mpc
-            - No. NSNS: {nsns:.0f} ({nsnsm} of these missed)
-            - No. BHBH: {bhbh:.0f} ({bhbhm} of these missed)
-            - No. Nova: {nova:.0f} ({novam} of these missed)
-        """.format(
+      return str('---- Total Range: {score} Mpc \n ---- NSNS Range: {nsnsr:.2f} Mpc \n'+\
+      '---- BHBH Range: {bhbhr:.2f} Mpc \n ---- No. NSNS: {nsns:.0f} ({nsnsm}'+\
+      ' of these missed) \n ---- No. BHBH: {bhbh:.0f} ({bhbhm} of these missed)' +\
+      '\n ---- No. Nova: {nova:.0f} ({novam} of these missed)').format(
          score=s.score,
          nsns=s.nsns,
          nsnsm=s.nsnsMissed,
@@ -74,7 +69,7 @@ class spaceTimeQuest:
          bhbhm=s.bhbhMissed,
          bhbhr=s.bhbhRange,
          nova=s.supernovae,
-         novam=s.supernovaeMissed))
+         novam=s.supernovaeMissed)
 
       print("Cost: ${:.0f} (${:.0f} remaining)".format(score.CalcCost(self.detector), \
            (self.detector.parameters['site'].budget - score.CalcCost(self.detector))))
@@ -146,6 +141,11 @@ class spaceTimeQuest:
       self.budget = pywidgets.HTML(
           value=self.budgetMsg(),
           description='Warning: ',
+      )
+
+      self.score = pywidgets.HTML(
+         value=' ',
+         description=' '
       )
 
       self.handle = show(self.plot, notebook_handle=True)
@@ -292,23 +292,27 @@ class spaceTimeQuest:
       def u(widge):
          self.updateDetector()
          self.drawToPlot()
-        # self.budgetMsg()
+         self.score.description = ' '
+         self.score.value = ' '
 
       # Link check boxes to updating plot
       def c(widge):
          self.updateDetector()
          self.drawToPlot()
+         self.score.description = ' '
+         self.score.value = ' '
 
       # Science run button function
       def b(widge):
-         print('Fetching score...')
-         self.updateDetector()
-         self.printscore()
+         self.score.value = self.printscore()
+         self.score.description = 'Score: '
 
       # Y-axis limit change slider
       def y(widge):
          self.setPlotYLim(pow(10, widge[0]), pow(10, widge[1]))
          self.drawToPlot()
+         self.score.description = ' '
+         self.score.value = ' '
 
       # Set up science run button
       button = pywidgets.Button(
@@ -384,7 +388,7 @@ class spaceTimeQuest:
       office.append(actions['Science Run'])
 
       tabpairs = {
-      'Office' : pywidgets.HBox([pywidgets.VBox(office), self.budget]),
+      'Office' : pywidgets.HBox([pywidgets.VBox(office), pywidgets.VBox([self.budget, self.score])]),
       'Environment' : pywidgets.HBox([pywidgets.VBox(environment), self.budget]),
       'Optics' : pywidgets.HBox([pywidgets.VBox(optics), self.budget]),
       'Suspension' : pywidgets.HBox([pywidgets.VBox(suspension), self.budget])
