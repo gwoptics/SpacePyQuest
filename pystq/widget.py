@@ -166,11 +166,6 @@ class spaceTimeQuest:
          x=np.array(x)
          idxs = np.nonzero((yi<=self.yHi) & (yi>=self.yLo))[0]
 
-         budgetlabel = Label(x=self.plot.plot_width*0.5, y=self.plot.plot_height*0.9, \
-                          text=self.budgetMsg(), level='glyph', render_mode='canvas', \
-                          text_color='red', text_font_size='9pt')
-         self.plot.add_layout(budgetlabel)
-
          if names[i] not in self.names:
             self.colours[names[i]] = palettelight[i]
             self.lines[names[i]] = self.plot.line(x[idxs], yi[idxs], color=palettelight[i], \
