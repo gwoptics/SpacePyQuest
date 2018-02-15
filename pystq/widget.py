@@ -142,7 +142,14 @@ class spaceTimeQuest:
       # show freq axis as 1 10 ... 10k
       self.plot.xaxis.formatter=NumeralTickFormatter(format="0 a")
       self.plot.output_backend = "svg"
+
+      self.budget = pywidgets.HTML(
+          value=self.budgetMsg(),
+          description='Warning: ',
+      )
+
       self.handle = show(self.plot, notebook_handle=True)
+      return self.budget
 
    # Update the existing plot
    def drawToPlot(self):
@@ -180,6 +187,8 @@ class spaceTimeQuest:
          if nm not in names:
             self.lines[nm].data_source.data['x'] = x
             self.lines[nm].data_source.data['y'] = [0] * len(x)
+
+      self.budget.value = self.budgetMsg()
       push_notebook()
 
    # Initialise all of the widgets
@@ -380,10 +389,10 @@ class spaceTimeQuest:
       office.append(actions['Science Run'])
 
       tabpairs = {
-      'Office' : pywidgets.VBox(office),
-      'Environment' : pywidgets.VBox(environment),
-      'Optics' : pywidgets.VBox(optics),
-      'Suspension' : pywidgets.VBox(suspension)
+      'Office' : pywidgets.HBox([pywidgets.VBox(office), self.budget]),
+      'Environment' : pywidgets.HBox([pywidgets.VBox(environment), self.budget]),
+      'Optics' : pywidgets.HBox([pywidgets.VBox(optics), self.budget]),
+      'Suspension' : pywidgets.HBox([pywidgets.VBox(suspension), self.budget])
       }
 
       if len(other) > 0:
