@@ -295,18 +295,7 @@ individual noise curves.
     The seismic noise is calculated considering a highly-damped
     pendulum with $1 < Q_{\rm pend} < 10$, where $Q_{\rm pend}$ is the
     pendulum quality factor. Here, we assume a quality factor of
-    $Q_{\rm pend} = 5$. 
-    
-    The pendulum noise spectral amplitude transfer function,
-    $\mathcal{T}_{\rm pend}$, is an approximation of equation (4)
-    in~\cite{Virgo-sens},
-    \begin{equation}
-    h_{S} = \frac{2}{L}\left(\mathcal{T}_{H}^2 + \theta_0\mathcal{T}_V^2\right)^{\frac{1}{2}}X_{seis},
-    \end{equation}
-    where $L$ is the detector's arm length, $\mathcal{T}_H$ and
-    $\mathcal{T}_V$ represent the horizontal and vertical spectral
-    amplitude transfer functions, and $\theta_0$ is the
-    vertical-to-beam-axis coupling angle. $X_{\rm seis}$ is calculated as
+    $Q_{\rm pend} = 5$. The ground motion, $X_{\rm seis}$, is calculated as
     in equation~\ref{eq:Xseis}.
     The pendulum oscillation frequency, $f_{p}$ is given as
     \begin{equation}
@@ -315,7 +304,7 @@ individual noise curves.
     where $g$ is the gravitational acceleration and $l$ is the
     suspension length. We consider only $f > f_p$, since for the
     shortest pendulum we get an $f_p$ of $\sim$ 1 Hz. The transfer
-    function is calculated as
+    function between ground motion and the test mass movement is then calculated as
     \begin{equation}
     \mathcal{T}_{\rm pend} = \frac{1}{1 + \left(\frac{f}{f_{p}}\right)^4 - \left(2 - \frac{1}{Q_{\rm pend}}\right)\left(\frac{f}{f_{p}}\right)^2}.
     \end{equation}
@@ -367,23 +356,19 @@ individual noise curves.
     \end{figure}
     \begin{itemize}
     \item \textbf{Mirror Thermal} \\
-    The mirror thermal noise depends on the angular frequency of oscillation,
-    \begin{equation}
-    \omega = 2\pi f.
-    \end{equation}
      The correct power spectral density of the mirror's internal
      vibrations, as provided in~\cite{Virgo-sens}, is
     \begin{equation}
-    <X_{\rm int}>^2 = \frac{4k_bT}{\omega^2} \times\text{\textbf{Re}}\left(\frac{1}{Imp(\omega)}\right),
+    X_{\rm int}^2 = \frac{4k_bT}{\omega^2} \times\text{\textbf{Re}}\left(\frac{1}{Imp(\omega )}\right).
     \end{equation}
-    where $k_b$ is the Boltzmann constant and $Imp(\omega)$ is the
-    system's mechanical impedence. In order to calculate this for
+    Here, $k_b$ is the Boltzmann constant, $Imp(\omega )$ is the
+    system's mechanical impedence, and $\omega = 2\pi f$. In order to calculate this for
     Space Py Quest, we  approximate only equation (28)
     from~\cite{Virgo-sens}, which is used to calculate the
     fluctuations due to
     the first mode resonance. The expression
     \begin{equation}
-    w_1 = 2\pi \times A_{\rm MT} \times \left(\frac{23}{M}\right)^{\frac{2}{3}}, 
+    w_1 = \times A_{\rm MT} \times \left(\frac{23}{M}\right)^{\frac{2}{3}}, 
     \end{equation}
     has been chosen to represent the first resonant frequency of the
     mirror, so that it scales inversely with mirror mass. This is
