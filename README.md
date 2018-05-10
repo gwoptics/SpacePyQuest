@@ -8,7 +8,7 @@ Space Py Quest is played from a Jupyter notebook that consists of a single plot 
 
 ![](SpacePyQuest.png)
 
-The Science Run option tool is a button, which returns a 'Score': the complexity and cost of the instrument; the number of detections for  Supernova, Black Hole binaries and Neutron Star binaries; the range to which the detector can sense binary system mergers; and the weighted total observation range of the detector. Note that the scoring algorithm in Space Py Quest is not identical to the one used in Space Time Quest, so that this code cannot be trivially used to get the top score in the [Space Time Quest leader board](https://www.laserlabs.org/stq_highscore/index.php?v=1.4).
+The Science Run option tool is a button, which returns a 'Score': the complexity and cost of the instrument; the number of detections for  Supernova, Black Hole binaries and Neutron Star binaries; the range to which the detector can sense binary system mergers; and the weighted total observation range of the detector. Note that the scoring algorithm in Space Py Quest is not identical to the one used in Space Time Quest, so that this code cannot be trivially used to get the top score in the [Space Time Quest leader board](https://www.laserlabs.org/stq_highscore/index.php?v=1.5).
 
 There are slightly more complex ways of interacting with the game. Space Py Quest allows the user to add their own noise models if they wish, using the ScoreCalculator class's SetNoiseModels function, which is held in score.py. The new models can be written into a script, as examplified in userDefinedNoise.py. Alternatively, they can be automatically generated using functions defined in translate.py.
 
