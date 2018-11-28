@@ -13,7 +13,7 @@ The Science Run option tool is a button, which returns a 'Score': the complexity
 There are slightly more complex ways of interacting with the game. Space Py Quest allows the user to add their own noise models if they wish, using the ScoreCalculator class's SetNoiseModels function, which is held in score.py. The new models can be written into a script, as examplified in userDefinedNoise.py. Alternatively, they can be automatically generated using functions defined in translate.py.
 
 ## Prerequisites
-Space Py Quest should be run with Python versions at or above 3.5.4, and with the Bokeh package at version 0.12.9. 
+Space Py Quest should be run with Python versions at or above 3.5.4, and with the Bokeh package at version 0.12.9 or above. 
 
 ## Installing
 There are several ways to install the required software packages and Space Py Quest. Experienced Python users can download the files from the repository and start the Jupyter notebook [SpacePyQuest.ipynb](SpacePyQuest.ipynb).
@@ -31,7 +31,7 @@ Open an Anaconda or Miniconda terminal. You can check that you are running a Pyt
 Run the command ```conda install jupyter``` to install Jupyter. You will need to confirm the install by pressing 'y' when prompted.
 
 ### Example 3: I do not have Bokeh
-Bokeh is an interactive graphics library for Python. To install this, open a command window and run ```conda install bokeh=0.12.9```. (Note that there are subtle differences between different versions of Bokeh and Space Py Quest might only work correctly with Bokey 0.12.9.)
+Bokeh is an interactive graphics library for Python. To install this, open a command window and run ```conda install bokeh```.
 
 ### Example 4: I have all aforementioned packages
 Great! Open a command window and navigate to the SpacePyQuest folder. Run the command ```jupyter notebook SpacePyQuest.ipynb```.
