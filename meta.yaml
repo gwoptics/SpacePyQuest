@@ -1,24 +1,25 @@
 package:
-   name: spq
-   version: "1.0.0"
+  name: spq
+  version: "1.0.0"
 
 source:
-   git_rev: v1.0.0
-   git_url: https://github.com/gwoptics/SpacePyQuest
+  git_rev: v1.0.0
+  git_url: https://github.com/gwoptics/SpacePyQuest.git
 
 requirements:
-   host:
+  build:
     - python
+    - setuptools
     - bokeh
-
-   run:
-   - python
+    - jupyter
+  run:
+    - python
 
 test:
-   imports:
-   - spq
+  imports:
+    - spq
 
 about:
-   home: https://github.com/gwoptics/SpacePyQuest
-   licence: GNU General Public License 3
-   license_file: gpl-3.0.md
+  home: https://github.com/gwoptics/SpacePyQuest
+  license: GPL
+  license_file: gpl-3.0.md
