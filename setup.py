@@ -68,7 +68,7 @@ VERSION = '1.0.0'
 version_file = write_version_file(VERSION)
 long_description = get_long_description()
 
-setup(name='spq',
+setup(name='Space Py Quest',
       description='''
     A gravitational wave interferometer parameter optimisation game, 
                   written in Python and run in a Jupyter Notebook.
@@ -79,7 +79,7 @@ setup(name='spq',
       author_email='isobel.romeroshaw@gmail.com',
       license="GPL 3",
       version=VERSION,
-      packages=['SpacePyQuest'],
+      packages=['spq'],
       package_dir={'SpacePyQuest': 'spq'},
       install_requires=[
           'bokeh>=0.12.9',
