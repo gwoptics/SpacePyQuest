@@ -80,7 +80,6 @@ setup(name='pystq',
       license="GPL 3",
       version=VERSION,
       packages=['pystq'],
-      package_dir={'': 'pystq'},
       install_requires=[
           'bokeh>=0.12.9',
           'jupyter'
