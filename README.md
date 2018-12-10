@@ -1,4 +1,4 @@
-# Space Py Quest 1.0.0
+ls# Space Py Quest 1.0.0
 
 Space Py Quest is a gravitational wave interferometer parameter optimisation game, written in Python and run in a Jupyter notebook. 
 It is based on the original game Space Time Quest, available as apps for iOS, Android, Windows, Linux and MacOs
