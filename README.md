@@ -1,4 +1,4 @@
-ls# Space Py Quest 1.0.0
+# Space Py Quest 1.0.0
 
 Space Py Quest is a gravitational wave interferometer parameter optimisation game, written in Python and run in a Jupyter notebook. 
 It is based on the original game Space Time Quest, available as apps for iOS, Android, Windows, Linux and MacOs
@@ -17,6 +17,12 @@ Space Py Quest should be run with Python versions at or above 3.5.4, and with th
 
 ## Installing
 There are several ways to install the required software packages and Space Py Quest. Experienced Python users can download the files from the repository and start the Jupyter notebook [SpacePyQuest.ipynb](SpacePyQuest.ipynb).
+
+It is now possible to install the core module for Space Py Quest without downloading all of the files in this repository. If you have [Anacoda](https://www.anaconda.com/) installed, simply type
+
+`conda install -c isobelmarguarethe pystq` 
+
+into the command prompt.
 
 Below we provide some suggestions for installing the required Python packages for less experienced users. Based on previous work with diverse groups of people, for example, such as during summer schools, we recommend the use of [Anacoda](https://www.anaconda.com/), which is cross platform, well documented and provides an easy to install and well managed Python environment.
 
