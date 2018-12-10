@@ -15,8 +15,20 @@ There are slightly more complex ways of interacting with the game. Space Py Ques
 ## Prerequisites
 Space Py Quest should be run with Python versions at or above 3.5.4, and with the Bokeh package at version 0.12.9 or above. 
 
-## Installing
+## Installing 
 There are several ways to install the required software packages and Space Py Quest. Experienced Python users can download the files from the repository and start the Jupyter notebook [SpacePyQuest.ipynb](SpacePyQuest.ipynb).
+
+It is also possible to install the core module, `pystq`, from the command line. This can be done in two ways:
+
+### Option 1: With Pip
+Simply type
+
+`pip install pystq`.
+
+### Option 2: With Conda
+Type
+
+`conda install -c isobelmarguarethe pystq`.
 
 Below we provide some suggestions for installing the required Python packages for less experienced users. Based on previous work with diverse groups of people, for example, such as during summer schools, we recommend the use of [Anacoda](https://www.anaconda.com/), which is cross platform, well documented and provides an easy to install and well managed Python environment.
 
