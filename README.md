@@ -18,7 +18,17 @@ Space Py Quest should be run with Python versions at or above 3.5.4, and with th
 ## Installing
 There are several ways to install the required software packages and Space Py Quest. Experienced Python users can download the files from the repository and start the Jupyter notebook [SpacePyQuest.ipynb](SpacePyQuest.ipynb).
 
-It is now possible to install the core module for Space Py Quest without downloading all of the files in this repository. If you have [Anacoda](https://www.anaconda.com/) installed, simply type
+It is now possible to install the core module for Space Py Quest without downloading all of the files in this repository. 
+
+## Option 1: With Pip
+Simply type
+
+`pip install pystq`
+
+into the command prompt.
+
+### Option 2: With Conda
+If you have [Anacoda](https://www.anaconda.com/) installed, simply type
 
 `conda install -c isobelmarguarethe pystq` 
 
