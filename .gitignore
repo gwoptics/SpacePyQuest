@@ -1,0 +1,6 @@
+*.pyc
+.DS_store
+*.log
+.ipynb_checkpoints
+MANIFEST
+__pychache__
